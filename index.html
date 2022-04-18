@@ -125,7 +125,7 @@
       .task {
         font-size: 18px;
         padding: 0 10px;
-        width: 80%;
+        /* width: 80%; */
         background: transparent;
         border: none;
         color: #fff;
@@ -133,6 +133,10 @@
 
       .task:focus {
         outline: none;
+      }
+
+      input.task{
+        width: 85%;
       }
 
       .app ul li i {
@@ -314,7 +318,7 @@
           if (task.task === event.value) {
             alert("Tarefa já existe!");
             event.value = currentTask;
-            
+
             return;
           }
         });
