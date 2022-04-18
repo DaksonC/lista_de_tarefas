@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Tarefas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@500&display=swap");
 
@@ -113,7 +114,7 @@
         cursor: pointer;
         border-radius: 50%;
         background-color: white;
-        border: 1px solid rgb(255, 255, 255);
+        border: 1px solid #ffffff;
         -webkit-appearance: none;
       }
 
@@ -140,11 +141,11 @@
       }
 
       .app ul li i:hover {
-        color: rgb(255, 82, 82);
+        color: #ff5252;
       }
 
       .completed {
-        color: rgba(192, 192, 192, 0.8);
+        color: #c0c0c0cc;
         text-decoration: line-through;
       }
       
@@ -186,9 +187,26 @@
         tasks.forEach(task => {
           const list = document.querySelector("ul");
           const li = document.createElement("li");
-          li.innerHTML = `<input type="checkbox" onclick="taskComplete(this)" class="check" ${task.completed ? 'checked' : ''}>
-            <input type="text" value="${task.task}" class="task ${task.completed ? 'completed' : ''}" onfocus="getCurrentTask(this)" onblur="editTask(this)">
-            <i class="fa fa-trash" onclick="removeTask(this)"></i>`;
+          li.innerHTML = `
+            <input 
+              type="checkbox" 
+              onclick="taskComplete(this)" 
+              class="check" 
+              ${task.completed ? 'checked' : ''}
+            >
+            <input 
+              type="text" 
+              value="${task.task}" 
+              class="task ${task.completed ? 'completed' : ''}" 
+              onfocus="getCurrentTask(this)" 
+              onblur="editTask(this)"
+            >
+            <i 
+              class="fa fa-trash" 
+              onclick="removeTask(this)"
+            ></i>
+          `;
+
           list.insertBefore(li, list.children[0]);
         });
       }
@@ -196,25 +214,49 @@
       function addTask() {
         const task = document.querySelector("form input");
         const list = document.querySelector("ul");
+
         // retornar se a tarefa estiver vazia
         if (task.value === "") {
           alert("Por favor, adicione alguma tarefa!");
+
           return false;
         }
+
         // verifique se a tarefa já existe
         if (document.querySelector(`input[value="${task.value}"]`)) {
           alert("Tarefa já existe!");
+
           return false;
         }
 
         // adicionar tarefa ao armazenamento local
-        localStorage.setItem("tasks", JSON.stringify([...JSON.parse(localStorage.getItem("tasks") || "[]"), { task: task.value, completed: false }]));
+        localStorage.setItem("tasks", JSON.stringify([...JSON.parse(localStorage.getItem("tasks") || "[]"), 
+          { 
+            task: task.value, 
+            completed: false 
+          }
+        ]));
 
         // criar item de lista, adicionar innerHTML e anexar a ul
         const li = document.createElement("li");
-        li.innerHTML = `<input type="checkbox" onclick="taskComplete(this)" class="check">
-        <input type="text" value="${task.value}" class="task" onfocus="getCurrentTask(this)" onblur="editTask(this)">
-        <i class="fa fa-trash" onclick="removeTask(this)"></i>`;
+        li.innerHTML = `
+          <input 
+            type="checkbox" 
+            onclick="taskComplete(this)" 
+            class="check"
+          >
+          <input 
+            type="text" 
+            value="${task.value}" 
+            class="task" 
+            onfocus="getCurrentTask(this)" 
+            onblur="editTask(this)"
+          >
+          <i 
+            class="fa fa-trash"   
+            onclick="removeTask(this)"
+          ></i>
+        `;
         list.insertBefore(li, list.children[0]);
 
         // limpar entrada
@@ -228,6 +270,7 @@
             task.completed = !task.completed;
           }
         });
+
         localStorage.setItem("tasks", JSON.stringify(tasks));
         event.nextElementSibling.classList.toggle("completed");
       }
@@ -241,6 +284,7 @@
             tasks.splice(tasks.indexOf(task), 1);
           }
         });
+
         localStorage.setItem("tasks", JSON.stringify(tasks));
         event.parentElement.remove();
       }
@@ -261,6 +305,7 @@
         if (event.value === "") {
           alert("Task is empty!");
           event.value = currentTask;
+
           return;
         }
 
@@ -269,6 +314,7 @@
           if (task.task === event.value) {
             alert("Tarefa já existe!");
             event.value = currentTask;
+            
             return;
           }
         });
