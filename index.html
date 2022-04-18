@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas</title>
+    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@500&display=swap");
+
+      * {
+        margin: 0
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 50px;
+        background-color: #1d1e1f;
+        height: 100vh;
+        font-family: sans-serif;
+      }
+
+      .app {
+        width: 60%;
+      }
+
+      @media (max-width:768px) {
+        .app {
+          width: 90%;
+        }
+      }
+
+      .app h1 {
+        color: white;
+        font-size: 40px;
+        padding: 10px 0;
+        text-align: center;
+        border-radius: .5rem .5rem 0 0;
+        background-color: #1d1e1f;
+        font-family: "Rajdhani", sans-serif;
+      }
+
+      .app form {
+        display: flex;
+        width: 100%;
+        background-color: #1d1e1f;
+      }
+
+      .app form input {
+        border: none;
+        border-radius: 10px 0 0 10px;
+        background-color: #202124;
+        font-size: 18px;
+        color: white;
+        padding: 10px;
+        width: 90%;
+      }
+
+      .app form button {
+        border: none;
+        border-radius: 0 10px 10px 0px;
+        color: #202124;
+        background-color: #d2cf1d;
+        font-size: 25px;
+        font-weight: 600;
+        height: 42px;
+        width: 10%;
+        cursor: pointer;
+        transition: color 0.5s;
+      }
+
+      .app form button:hover{
+        color:#d2cf1d;
+        background-color:#202124;
+      }
+
+      .app ul {
+        list-style: none;
+        color: #d2cf1d;
+        padding: 0;
+      }
+
+      .app ul li {
+        padding: 10px;
+        margin: 10px;
+        background-color: #2e2f30;
+        border-radius: 10px;
+      }
+
+      .check {
+        width: 0.8em;
+        height: 0.8em;
+        cursor: pointer;
+        border-radius: 50%;
+        background-color: white;
+        border: 1px solid rgb(255, 255, 255);
+        -webkit-appearance: none;
+      }
+
+      .check:checked {
+        background-color: #d2cf1d;
+      }
+
+      .task {
+        font-size: 18px;
+        padding: 0 10px;
+        width: fit-content;
+        background: transparent;
+        border: none;
+        color: #fff;
+      }
+
+      .task:focus {
+        outline: none;
+      }
+
+      .app ul li i {
+        float: right;
+        cursor: pointer;
+      }
+
+      .app ul li i:hover {
+        color: rgb(255, 82, 82);
+      }
+
+      .completed {
+        color: rgba(192, 192, 192, 0.8);
+        text-decoration: line-through;
+      }
+      
+      
+    </style> 
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="app">
+        <h1>LISTA DE TAREFAS</h1>
+        <form>
+          <input type="text" placeholder="Nova tarefa...">
+          <button type="submit">&plus;</button>
+        </form>
+        <ul></ul>
+      </div>
+    </div>
+    <script>
+      // No carregamento do aplicativo, obtenha todas as tarefas do localStorage
+      window.onload = loadTasks;
+
+      // Ao enviar o formulário adicionar tarefa
+      document.querySelector("form").addEventListener("submit", e => {
+        e.preventDefault();
+        addTask();
+      });
+
+      function loadTasks() {
+        // verifique se localStorage tem alguma tarefa
+        // se não, então retorne
+        if (localStorage.getItem("tasks") == null) 
+          return;
+
+        // Obtenha as tarefas do localStorage e converta-as em uma matriz
+        let tasks = Array.from(JSON.parse(localStorage.getItem("tasks")));
+
+        // Percorra as tarefas e adicione-as à lista
+        tasks.forEach(task => {
+          const list = document.querySelector("ul");
+          const li = document.createElement("li");
+          li.innerHTML = `<input type="checkbox" onclick="taskComplete(this)" class="check" ${task.completed ? 'checked' : ''}>
+            <input type="text" value="${task.task}" class="task ${task.completed ? 'completed' : ''}" onfocus="getCurrentTask(this)" onblur="editTask(this)">
+            <i class="fa fa-trash" onclick="removeTask(this)"></i>`;
+          list.insertBefore(li, list.children[0]);
+        });
+      }
+
+      function addTask() {
+        const task = document.querySelector("form input");
+        const list = document.querySelector("ul");
+        // retornar se a tarefa estiver vazia
+        if (task.value === "") {
+          alert("Por favor, adicione alguma tarefa!");
+          return false;
+        }
+        // verifique se a tarefa já existe
+        if (document.querySelector(`input[value="${task.value}"]`)) {
+          alert("Tarefa já existe!");
+          return false;
+        }
+
+        // adicionar tarefa ao armazenamento local
+        localStorage.setItem("tasks", JSON.stringify([...JSON.parse(localStorage.getItem("tasks") || "[]"), { task: task.value, completed: false }]));
+
+        // criar item de lista, adicionar innerHTML e anexar a ul
+        const li = document.createElement("li");
+        li.innerHTML = `<input type="checkbox" onclick="taskComplete(this)" class="check">
+        <input type="text" value="${task.value}" class="task" onfocus="getCurrentTask(this)" onblur="editTask(this)">
+        <i class="fa fa-trash" onclick="removeTask(this)"></i>`;
+        list.insertBefore(li, list.children[0]);
+
+        // limpar entrada
+        task.value = "";
+      }
+
+      function taskComplete(event) {
+        let tasks = Array.from(JSON.parse(localStorage.getItem("tasks")));
+        tasks.forEach(task => {
+          if (task.task === event.nextElementSibling.value) {
+            task.completed = !task.completed;
+          }
+        });
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        event.nextElementSibling.classList.toggle("completed");
+      }
+
+      function removeTask(event) {
+        let tasks = Array.from(JSON.parse(localStorage.getItem("tasks")));
+        tasks.forEach(task => {
+          if (task.task === event.parentNode.children[1].value) {
+            
+            // delete task
+            tasks.splice(tasks.indexOf(task), 1);
+          }
+        });
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        event.parentElement.remove();
+      }
+
+      // armazene a tarefa atual para rastrear as alterações
+      var currentTask = null;
+
+      // obter tarefa atual
+      function getCurrentTask(event) {
+        currentTask = event.value;
+      }
+
+      // edite a tarefa e atualize o localstorage
+      function editTask(event) {
+        let tasks = Array.from(JSON.parse(localStorage.getItem("tasks")));
+
+        // verifique se a tarefa está vazia
+        if (event.value === "") {
+          alert("Task is empty!");
+          event.value = currentTask;
+          return;
+        }
+
+        // tarefa já existe
+        tasks.forEach(task => {
+          if (task.task === event.value) {
+            alert("Tarefa já existe!");
+            event.value = currentTask;
+            return;
+          }
+        });
+
+        // atualizar tarefa
+        tasks.forEach(task => {
+          if (task.task === currentTask) {
+            task.task = event.value;
+          }
+        });
+
+        // atualizar localstorage
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+      }
+    </script> 
+  <script type="text/javascript" src="index.js"></script>
+  </body>
+
+</html>
