@@ -126,9 +126,11 @@
         font-size: 18px;
         padding: 0 10px;
         width: fit-content;
+        width: -moz-fit-content;
         background: transparent;
         border: none;
         color: #fff;
+        width: 82%;
       }
 
       .task:focus {
@@ -146,6 +148,7 @@
 
       .completed {
         color: #c0c0c0cc;
+        width: 82%;
         text-decoration: line-through;
       }
       
@@ -195,7 +198,6 @@
               ${task.completed ? 'checked' : ''}
             >
             <input
-              style="width: 82%;"
               type="text" 
               value="${task.task}" 
               class="task ${task.completed ? 'completed' : ''}" 
