@@ -28,7 +28,7 @@ tasks.forEach(task => {
             ${task.completed ? 'checked' : ''}
         >
         <input
-            style="width:82%"
+            size="68"
             type="text" 
             value="${task.task}" 
             class="task ${task.completed ? 'completed' : ''}" 
