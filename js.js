@@ -28,12 +28,12 @@ tasks.forEach(task => {
         ${task.completed ? 'checked' : ''}
     >
     <input
-        style="border: 1px solid red; width:82;"
         type="text" 
         value="${task.task}" 
         class="task ${task.completed ? 'completed' : ''}" 
         onfocus="getCurrentTask(this)" 
         onblur="editTask(this)"
+        style="width:82%;"
     >
     <i 
         class="fa fa-trash" 
