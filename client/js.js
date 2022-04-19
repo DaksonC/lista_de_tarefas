@@ -163,3 +163,4 @@ tasks.forEach(task => {
 // atualizar localstorage
 localStorage.setItem("tasks", JSON.stringify(tasks));
 }
+
