@@ -80,6 +80,7 @@ function addTask() {
             class="check"
         >
         <input 
+            size="68"
             type="text" 
             value="${task.value}" 
             class="task" 
