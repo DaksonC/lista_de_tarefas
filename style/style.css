@@ -14,10 +14,12 @@
         padding-top: 50px;
         height: 100vh;
         font-family: sans-serif;
+        background-color: #1d1e1f;
       }
 
       .app {
         width: 60%;
+        background-color: #1d1e1f;
       }
 
       @media only screen and (max-width:768px) {
