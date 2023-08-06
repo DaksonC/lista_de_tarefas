@@ -3,24 +3,24 @@ window.onload = loadTasks;
 
 // Ao enviar o formulário adicionar tarefa
 document.querySelector("form").addEventListener("submit", e => {
-e.preventDefault();
-addTask();
+    e.preventDefault();
+    addTask();
 });
 
 function loadTasks() {
-// verifique se localStorage tem alguma tarefa
-// se não, então retorne
-if (localStorage.getItem("tasks") == null) 
-    return;
+    // verifique se localStorage tem alguma tarefa
+    // se não, então retorne
+    if (localStorage.getItem("tasks") == null)
+        return;
 
-// Obtenha as tarefas do localStorage e converta-as em uma matriz
-let tasks = Array.from(JSON.parse(localStorage.getItem("tasks")));
+    // Obtenha as tarefas do localStorage e converta-as em uma matriz
+    let tasks = Array.from(JSON.parse(localStorage.getItem("tasks")));
 
-// Percorra as tarefas e adicione-as à lista
-tasks.forEach(task => {
-    const list = document.querySelector("ul");
-    const li = document.createElement("li");
-    li.innerHTML = `
+    // Percorra as tarefas e adicione-as à lista
+    tasks.forEach(task => {
+        const list = document.querySelector("ul");
+        const li = document.createElement("li");
+        li.innerHTML = `
         <input 
             type="checkbox" 
             onclick="taskComplete(this)" 
@@ -40,8 +40,8 @@ tasks.forEach(task => {
         ></i>
     `;
 
-    list.insertBefore(li, list.children[0]);
-});
+        list.insertBefore(li, list.children[0]);
+    });
 }
 
 function addTask() {
@@ -63,11 +63,11 @@ function addTask() {
     }
 
     // adicionar tarefa ao armazenamento local
-    localStorage.setItem("tasks", JSON.stringify([...JSON.parse(localStorage.getItem("tasks") || "[]"), 
-        { 
-            task: task.value, 
-            completed: false 
-        }
+    localStorage.setItem("tasks", JSON.stringify([...JSON.parse(localStorage.getItem("tasks") || "[]"),
+    {
+        task: task.value,
+        completed: false
+    }
     ]));
 
     // criar item de lista, adicionar innerHTML e anexar a ul
@@ -112,9 +112,9 @@ function removeTask(event) {
     let tasks = Array.from(JSON.parse(localStorage.getItem("tasks")));
     tasks.forEach(task => {
         if (task.task === event.parentNode.children[1].value) {
-        
-        // delete task
-        tasks.splice(tasks.indexOf(task), 1);
+
+            // delete task
+            tasks.splice(tasks.indexOf(task), 1);
         }
     });
 
@@ -148,7 +148,7 @@ function editTask(event) {
             alert("Tarefa já existe!");
             event.value = currentTask;
 
-        return;
+            return;
         }
     });
 

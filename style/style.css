@@ -1,151 +1,153 @@
 @import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@500&display=swap");
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-      body {
-        width: 100vw;
-        height: 100vh;
-      }
+body {
+  width: 100vw;
+  height: 100vh;
+}
 
-      .container {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-top: 50px;
-        font-family: sans-serif;
-        background-color: #1d1e1f;
-      }
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+  font-family: sans-serif;
+  background-color: #1d1e1f;
+}
 
-      .app {
-        width: 60%;
-        background-color: #1d1e1f;
-      }
+.app {
+  width: 60%;
+  background-color: #1d1e1f;
+}
 
-      @media only screen and (max-width:768px) {
-        .app {
-          width: 100%;
-        }
-        input.task {
-          font-size: 0.9rem;
-        }
-      }
-      
-      @media only screen and (max-width: 368px) {
-        .app {
-          width: 100%;
-        }
-        input.task {
-          font-size: 0.7rem;
-        }
-        .app ul li i {
-          font-size: 0.8em;
-        }
-      }
+@media only screen and (max-width:768px) {
+  .app {
+    width: 100%;
+  }
 
-      .app h1 {
-        color: white;
-        font-size: 40px;
-        padding: 10px 0;
-        text-align: center;
-        border-radius: .5rem .5rem 0 0;
-        background-color: #1d1e1f;
-        font-family: "Rajdhani", sans-serif;
-      }
+  input.task {
+    font-size: 0.9rem;
+  }
+}
 
-      .app form {
-        display: flex;
-        width: 100%;
-        background-color: #1d1e1f;
-      }
+@media only screen and (max-width: 368px) {
+  .app {
+    width: 100%;
+  }
 
-      .app form input {
-        border: none;
-        border-radius: 10px 0 0 10px;
-        background-color: #202124;
-        font-size: 18px;
-        color: white;
-        padding: 10px;
-        width: 90%;
-      }
+  input.task {
+    font-size: 0.7rem;
+  }
 
-      .app form button {
-        border: none;
-        border-radius: 0 10px 10px 0px;
-        color: #202124;
-        background-color: #d2cf1d;
-        font-size: 25px;
-        font-weight: 600;
-        height: 42px;
-        width: 10%;
-        cursor: pointer;
-        transition: color 0.5s;
-      }
+  .app ul li i {
+    font-size: 0.8em;
+  }
+}
 
-      .app form button:hover{
-        color:#d2cf1d;
-        background-color:#202124;
-      }
+.app h1 {
+  color: white;
+  font-size: 40px;
+  padding: 10px 0;
+  text-align: center;
+  border-radius: .5rem .5rem 0 0;
+  background-color: #1d1e1f;
+  font-family: "Rajdhani", sans-serif;
+}
 
-      .app ul {
-        list-style: none;
-        color: #d2cf1d;
-        padding: 0;
-        font-size: 0.9rem;
-      }
+.app form {
+  display: flex;
+  width: 100%;
+  background-color: #1d1e1f;
+}
 
-      .app ul li {
-        padding: 12px;
-        margin: 12px;
-        background-color: #2e2f30;
-        border-radius: 10px;
-      }
+.app form input {
+  border: none;
+  border-radius: 10px 0 0 10px;
+  background-color: #202124;
+  font-size: 18px;
+  color: white;
+  padding: 10px;
+  width: 90%;
+}
 
-      .check {
-        width: 0.8em;
-        height: 0.8em;
-        cursor: pointer;
-        border-radius: 50%;
-        background-color: white;
-        border: 1px solid #d2cf1d;
-        -webkit-appearance: none;
-      }
+.app form button {
+  border: none;
+  border-radius: 0 10px 10px 0px;
+  color: #202124;
+  background-color: #d2cf1d;
+  font-size: 25px;
+  font-weight: 600;
+  height: 42px;
+  width: 10%;
+  cursor: pointer;
+  transition: color 0.5s;
+}
 
-      .check:checked {
-        background-color: #d2cf1d;
-      }
+.app form button:hover {
+  color: #d2cf1d;
+  background-color: #202124;
+}
 
-      .task {
-        font-size: 18px;
-        padding: 0 10px;
-        background: transparent;
-        border: none;
-        color: #fff;
-      }
+.app ul {
+  list-style: none;
+  color: #d2cf1d;
+  padding: 0;
+  font-size: 0.9rem;
+}
 
-      .task:focus {
-        outline: none;
-      }
+.app ul li {
+  padding: 12px;
+  margin: 12px;
+  background-color: #2e2f30;
+  border-radius: 10px;
+}
 
-      .app ul li i {
-        float: right;
-        cursor: pointer;
-      }
+.check {
+  width: 0.8em;
+  height: 0.8em;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: white;
+  border: 1px solid #d2cf1d;
+  -webkit-appearance: none;
+}
 
-      .app ul li i:hover {
-        color: #ff5252;
-      }
+.check:checked {
+  background-color: #d2cf1d;
+}
 
-      .app ul li input.task{
-        width: 82%;
-      }
+.task {
+  font-size: 18px;
+  padding: 0 10px;
+  background: transparent;
+  border: none;
+  color: #fff;
+}
 
-      .completed {
-        color: #c0c0c0cc;
-        text-decoration: line-through;
-      }
-      
+.task:focus {
+  outline: none;
+}
+
+.app ul li i {
+  float: right;
+  cursor: pointer;
+}
+
+.app ul li i:hover {
+  color: #ff5252;
+}
+
+.app ul li input.task {
+  width: 82%;
+}
+
+.completed {
+  color: #c0c0c0cc;
+  text-decoration: line-through;
+}
