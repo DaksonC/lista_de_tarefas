@@ -1,0 +1,11 @@
+title: Meu gerenciador de tarefas
+description: Um site para gerenciar minhas tarefas
+
+# URL base do site
+baseurl: ""
+
+theme: jekyll-theme-minimal
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
